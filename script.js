@@ -12,7 +12,7 @@ function makeGrid(gridSize) {
             const row = document.createElement("div");
             row.className = "row";
             col.appendChild(row);
-            row.textContent = "R" + j;
+            //row.textContent = "R" + j;
 
             row.addEventListener('mouseenter',function(){
                 row.style.backgroundColor = "lightblue";
