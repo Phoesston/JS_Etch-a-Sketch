@@ -27,13 +27,12 @@ function makeGrid(gridSize) {
             cell.style.backgroundColor = backgroundColor;
 
             if(rainbowMode == true){
-                prencilToggle = false;
+                pencilToggle = false;
                 rainbow();
             }
 
             if(pencilToggle == true){
                 rainbowMode = false;
-                backgroundColor = "white"
                 pencilMode();
             }
         })
@@ -69,14 +68,12 @@ function rainbow(){
     backgroundColor = rgbValue;
 }
 
-function pencilMode(){
-    let rgbValue;
-    let initialOpacity = 0.10;
-    let addOpacity = initialOpacity + 0.10;
+function pencilMode() {
+   
+}
 
-    rgbValue = `rgba(0, 0, 0, ${addOpacity})`;
-    
-    backgroundColor = rgbValue;
+function clearBtn(){
+    makeGrid(gridSize);
 }
 
 
