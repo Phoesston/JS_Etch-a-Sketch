@@ -1,44 +1,85 @@
-const container = document.querySelector(".container")
+const sketchArea = document.querySelector(".Sketch-Area");
+const cellArea = document.querySelector(".cell")
+
 let gridSize = 16;
+const sketchAreaSize = 640;
+let backgroundColor = "black";
+let rainbowMode = false;
+let pencilToggle = false;
+
 
 function makeGrid(gridSize) {
-    for (let i = 0; i < gridSize; i++) {
-        const col = document.createElement("div");
-        col.className = "col";
-        container.appendChild(col);
-        col.textContent = "C" + i;   
 
-        for (let j = 0; j < gridSize; j++) {
-            const row = document.createElement("div");
-            row.className = "row";
-            col.appendChild(row);
-            //row.textContent = "R" + j;
+    sketchArea.innerHTML = '';
+    let cellSize = sketchAreaSize/gridSize;
 
-            row.addEventListener('mouseenter',function(){
-                row.style.backgroundColor = "lightblue";
-            });
-        }
+    for (let i = 0; i < gridSize*gridSize; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'cell'; // Add class for styling
+        cell.style.width = `${cellSize}px`;
+        cell.style.height = `${cellSize}px`;
+
+        sketchArea.appendChild(cell); // Append the item to the container
+
+
+        cell.addEventListener('mouseenter',function(){
+            
+            cell.style.backgroundColor = backgroundColor;
+
+            if(rainbowMode == true){
+                prencilToggle = false;
+                rainbow();
+            }
+
+            if(pencilToggle == true){
+                rainbowMode = false;
+                backgroundColor = "white"
+                pencilMode();
+            }
+        })
+       
     }
-
 }
 
-/*function selectCell(colIndex, rowIndex){
-    const cols = document.querySelectorAll(".col");
-    const selectedCol = cols[colIndex];
+function newGrid(){
+    let newGridSize = prompt("Enter New grid Size: 2-100")
+    gridSize = parseInt(newGridSize);
 
-    const rows = selectedCol.querySelectorAll(".row");
-    const selectedCell = rows[rowIndex];
+    if(newGridSize >= 2 && newGridSize <= 100){
 
-    return selectedCell;
-}*/
+        gridSize = newGridSize;
+        makeGrid(gridSize);
+    }else{
+        alert("Must be between 2-100");
+    }
+}
+
+
+function rainbow(){
+
+    let rgbValue;  
+    rainbowMode = true;
+
+    let red = Math.floor(Math.random() * 256);
+    let green = Math.floor(Math.random() * 256);
+    let blue = Math.floor(Math.random() * 256);
+
+    rgbValue = `rgb(${red}, ${green}, ${blue})`;
+
+    backgroundColor = rgbValue;
+}
+
+function pencilMode(){
+    let rgbValue;
+    let initialOpacity = 0.10;
+    let addOpacity = initialOpacity + 0.10;
+
+    rgbValue = `rgba(0, 0, 0, ${addOpacity})`;
+    
+    backgroundColor = rgbValue;
+}
+
 
 
 makeGrid(gridSize);
 
-
-
-/*const cell = selectCell(0,0);
-if (cell) {
-    console.log(cell.textContent); // Logs the text content of the selected cell
-    cell.style.backgroundColor = "yellow"; // Highlight the selected cell, for example
-}*/
